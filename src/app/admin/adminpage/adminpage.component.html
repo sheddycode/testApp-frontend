@@ -1,0 +1,43 @@
+<div class="flex h-screen bg-gray-100">
+  <!-- Sidebar -->
+  <div [class.hidden]="!isSidebarOpen" class="w-64 bg-white shadow-md p-4 transition-transform duration-300 md:block">
+    <div class="flex items-center space-x-2 flex-shrink-0">
+        <img src="assets/img/capone.jpg" width="60" class="rounded-lg" alt="Logo">
+        <p class="text-xl kaushan-script-regular text-grey-300">MyTestApp</p>
+    </div>
+
+    
+    <nav class="space-y-4 mt-6">
+        <a routerLink="upload" routerLinkActive="bg-gray-300 text-gray-200"  class="flex justify-between items-center text-gray-500 hover:bg-orange-300 hover:text-white p-2 rounded-lg transition">Upload question <span><i class="ri-upload-cloud-2-line"></i></span></a>
+        <a routerLink="questions" routerLinkActive="bg-gray-300 text-gray-200"  class="flex justify-between items-center text-gray-500 hover:bg-orange-300 hover:text-white p-2 rounded-lg transition">Questions <span><i class="ri-questionnaire-line"></i></span></a>
+      
+        <a routerLink="students" routerLinkActive="bg-gray-300 text-gray-200"  
+        class="flex justify-between items-center text-gray-500 hover:bg-orange-300 hover:text-white p-2 rounded-lg transition">
+       Users List 
+       <span><i class="ri-list-ordered-2"></i></span>
+     </a>
+        <a   (click)="logoutUser()" class="flex justify-between item mt-6 text-gray-500 hover:bg-orange-500 hover:text-white p-2 rounded-lg transition">Logout <span><i class="ri-logout-box-line"></i></span></a>
+        
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col">
+    <!-- Top Bar -->
+    <div class="bg-orange-500 shadow-md p-4 flex justify-between items-center">
+      <button (click)="toggleSidebar()" class="md:hidden bg-gray-700 text-white p-2 rounded-lg">
+        ☰
+      </button>
+      <h1 class="text-xl font-semibold text-white">Welcome, Admin</h1>
+    </div>
+
+
+    <!-- Dashboard Content -->
+    <div class="p-2 flex-1 overflow-auto">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-2">Dashboard Overview</h2>
+      <div class="grid grid-cols-1  gap-4">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  

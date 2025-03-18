@@ -1,0 +1,103 @@
+<div class="bg-orange-600 text-white shadow-lg p-6 flex justify-between items-center">
+  <!-- Left: Logo & App Name -->
+  <div class="flex items-center space-x-3">
+    <img src="assets/img/capone.jpg" width="50" class="rounded-full shadow-md" alt="Logo">
+    <p class="text-2xl font-semibold kaushan-script-regular">MyTestApp</p>
+  </div>
+  
+  <!-- Right: Logout Button -->
+  <button (click)="logout()" class="flex items-center bg-white text-orange-600 px-4 py-2 rounded-md shadow-md hover:bg-gray-200 transition-all">
+    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7"></path>
+    </svg>
+    <span  class="font-medium">Logout</span>
+  </button>
+</div>
+
+
+
+
+<!-- Quiz Container -->
+<div class="container mx-auto p-8 flex flex-col items-center">
+
+  <!-- Quiz Content -->
+  <div *ngIf="quizStarted" class="relative w-full max-w-2xl bg-white shadow-lg rounded-lg p-6 mt-6">
+
+    <!-- Question Navigation Buttons (Inside Quiz Box) -->
+    <div class="flex flex-wrap justify-center gap-2 mb-4">
+      <button 
+        *ngFor="let question of questions; let i = index" 
+        (click)="goToQuestion(i)"
+        class="w-10 h-10 rounded-full font-semibold shadow-md transition duration-300"
+        [ngClass]="{
+          'bg-orange-600 text-white': currentQuestionIndex === i,
+          'bg-gray-300 text-gray-800': currentQuestionIndex !== i
+        }">
+        {{ i + 1 }}
+      </button>
+    </div>
+
+   <!-- Timer (Hidden until questions are loaded) -->
+<div *ngIf="quizStarted" class="absolute top-4 right-4 w-16 h-16 flex items-center justify-center text-xl font-bold rounded-full shadow-lg"
+[ngClass]="timer > 15 ? 'bg-red-600 text-white' : 'bg-red-800 text-yellow-300'">
+{{ timer }}s
+</div>
+
+    <!-- Warning Text (Visible when time ≤ 15s) -->
+    <p *ngIf="timer <= 15 && timer > 0" class="text-red-600 font-bold text-lg text-center mt-2">
+      Hurry up! Time is running out!
+    </p>
+
+    <!-- Question Indicator -->
+    <p class="text-gray-600 text-lg font-medium">Question {{ currentQuestionIndex + 1 }} of {{ totalQuestions }}</p>
+
+    <!-- Display Question -->
+    <h2 class="text-xl font-semibold text-gray-800 mt-4">{{ questions[currentQuestionIndex]?.question }}</h2>
+
+    <!-- Display Options -->
+    <div class="mt-4 space-y-3">
+      <label 
+        *ngFor="let option of questions[currentQuestionIndex]?.options"
+        class="flex items-center space-x-3 cursor-pointer text-lg font-medium"
+        [class.selected]="option === selectedAnswer">
+        
+        <input 
+          type="radio" 
+          name="quizOption" 
+          [value]="option" 
+          (change)="selectAnswer(option)"
+          class="hidden">
+        
+        <div class="w-6 h-6 border-2 border-orange-600 mx-3 rounded-full flex items-center justify-center">
+          <div *ngIf="option === selectedAnswer" class="w-3 h-3 bg-orange-600 rounded-full"></div>
+        </div>
+        {{ option }}
+      </label>
+    </div>
+
+    <!-- Navigation Buttons (Previous & Next) -->
+    <div class="flex justify-between mt-6">
+      <button 
+        *ngIf="currentQuestionIndex > 0"
+        (click)="previousQuestion()"
+        class="bg-gray-400 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-500 transition duration-300">
+        Previous
+      </button>
+
+      <button 
+        (click)="nextQuestion()"
+        [disabled]="!selectedAnswer"
+        class="bg-orange-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-orange-700 transition duration-300 disabled:bg-gray-300 disabled:text-gray-600">
+        Next
+      </button>
+    </div>
+
+    <!-- Submit Quiz Button -->
+    <button 
+      *ngIf="currentQuestionIndex === questions.length - 1"
+      (click)="submitQuiz()"
+      class="w-full bg-orange-400 text-white px-6 py-3 mt-6 rounded-lg shadow-md font-semibold hover:bg-orange-600 transition duration-300">
+      Submit Quiz
+    </button>
+  </div>
+</div>

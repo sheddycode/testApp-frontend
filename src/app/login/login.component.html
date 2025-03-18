@@ -1,0 +1,67 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Login</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <!-- Username Input -->
+      <div class="mb-4">
+        <label class="block text-gray-600 mb-1">Username</label>
+        <div class="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
+          <svg class="w-5 h-5 text-gray-700 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M16 12H8m8 0a4 4 0 0 0-8 0m8 0a4 4 0 1 1-8 0m8 0a4 4 0 1 1-8 0" />
+          </svg>
+          <input formControlName="username" type="text" placeholder="Enter your username"
+            class="w-full ml-2 bg-transparent outline-none text-gray-700">
+        </div>
+      </div>
+
+      <!-- Password Input -->
+      <div class="mb-4">
+        <label class="block text-gray-600 mb-1">Password</label>
+        <div class="flex items-center border rounded-lg px-3 py-2 bg-gray-50 relative">
+          <svg class="w-5 h-5 text-gray-700 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 11c0-2.21 1.79-4 4-4m0 8a4 4 0 1 0 0-8m0 8a4 4 0 1 0 0-8m0 8a4 4 0 1 0 0-8m0 8a4 4 0 1 0 0-8" />
+          </svg>
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter your password"
+            class="w-full ml-2 bg-transparent outline-none text-gray-700 pr-10">
+          
+          <!-- Eye Toggle Button -->
+          <button type="button" (click)="togglePassword()" 
+            class="absolute right-3 text-black focus:outline-none md:right-3 md:top-2">
+            <!-- Show Eye Icon -->
+            <svg *ngIf="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 4.5c-7.5 0-10.5 7.5-10.5 7.5s3 7.5 10.5 7.5 10.5-7.5 10.5-7.5-3-7.5-10.5-7.5z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            <!-- Hide Eye (Slash) Icon -->
+            <svg *ngIf="showPassword" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 3l18 18m-9-3a6 6 0 0 1 0-12m-7.5 6s3-7.5 10.5-7.5 10.5 7.5 10.5 7.5-3 7.5-10.5 7.5-10.5-7.5-10.5-7.5z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Forgot Password -->
+      <div class="mb-4">
+        <a routerLink="/forgot-password" class="text-orange-500 hover:underline">Forgot Password?</a>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit"
+        class="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition">
+        Login
+      </button>
+
+      <!-- Signup Link -->
+      <p class="text-sm text-gray-600 text-center mt-4">
+        Don't have an account? <a routerLink="/register" class="text-orange-500 hover:underline">Sign Up</a>
+      </p>
+    </form>
+  </div>
+</div>
