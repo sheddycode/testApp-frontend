@@ -11,19 +11,21 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 
 
 const routes: Routes = [
- 
-  {path:'home', component: HomeComponent},
-  {path:'login', component: LoginComponent},
-  {path:'register', component: RegisterComponent},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-{path:'reset-password', component: ResetPasswordComponent},
+  { path: 'reset-password', component: ResetPasswordComponent },
 
-  {path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule),
-    canActivate:[AuthGuard]
+  {
+    path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+    canActivate: [AuthGuard]
 
   },
-  {path:'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-    canActivate:[AuthGuard]
+  {
+    path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canActivate: [AuthGuard]
   }
 ];
 
